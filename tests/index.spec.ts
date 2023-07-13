@@ -2,17 +2,51 @@ import validate, { getAddressInfo, Network } from '../src/index';
 
 describe('Validation and parsing', () => {
   it('validates Mainnet P2PKH', () => {
-    const address = '17VZNX1SN5NtKa8UQFxwQbFeFc3iqRYhem';
+    const addressBtc = '17VZNX1SN5NtKa8UQFxwQbFeFc3iqRYhem';
 
-    expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ type: 'p2pkh', network: 'mainnet', bech32: false, address });
+    expect(validate(addressBtc)).not.toBe(false)
+    expect(getAddressInfo(addressBtc)).toEqual({
+      type: 'p2pkh',
+      network: 'mainnet',
+      bech32: false,
+      address: addressBtc,
+      chains: ['bitcoin']
+    })
+
+    const addressLtc = 'Lg6npyEx53C2r9XqTAK2SLC3Hhq1jPNuYY'
+    
+    expect(validate(addressLtc)).not.toBe(false)
+    expect(getAddressInfo(addressLtc)).toEqual({
+      type: 'p2pkh',
+      network: 'mainnet',
+      bech32: false,
+      address: addressLtc,
+      chains: ['litecoin']
+    })
+
+    const addressXvg = 'D6NYsdntCHYDv6X6uGzgEChnoQruHBR1De'
+    
+    expect(validate(addressXvg)).not.toBe(false)
+    expect(getAddressInfo(addressXvg)).toEqual({
+      type: 'p2pkh',
+      network: 'mainnet',
+      bech32: false,
+      address: addressXvg,
+      chains: ['dogecoin', 'verge', 'bitcoin gold']
+    })
   });
 
   it('validates Testnet P2PKH', () => {
     const address = 'mipcBbFg9gMiCh81Kj8tqqdgoZub1ZJRfn';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ type: 'p2pkh', network: 'testnet', bech32: false, address });
+    expect(getAddressInfo(address)).toEqual({
+      type: 'p2pkh',
+      network: 'testnet',
+      bech32: false,
+      address,
+      chains: ['bitcoin', 'litecoin']
+    })
   });
 
   it('fails on invalid P2PKH', () => {
@@ -25,14 +59,26 @@ describe('Validation and parsing', () => {
     const address = '3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ type: 'p2sh', network: 'mainnet', bech32: false, address });
+    expect(getAddressInfo(address)).toEqual({
+      type: 'p2sh',
+      network: 'mainnet',
+      bech32: false,
+      address,
+      chains: ['bitcoin', 'litecoin']
+    })
   });
 
   it('validates Testnet P2SH', () => {
     const address = '2MzQwSSnBHWHqSAqtTVQ6v47XtaisrJa1Vc';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ type: 'p2sh', network: 'testnet', bech32: false, address });
+    expect(getAddressInfo(address)).toEqual({
+      type: 'p2sh',
+      network: 'testnet',
+      bech32: false,
+      address,
+      chains: ['bitcoin', 'dogecoin', 'litecoin']
+    })
   });
 
   it('fails on invalid P2SH', () => {
@@ -56,6 +102,7 @@ describe('Validation and parsing', () => {
       type: 'p2wpkh',
       network: 'mainnet',
       address: addresses[0],
+      chains: ['bitcoin']
     });
 
     expect(validate(addresses[1])).not.toBe(false);
@@ -64,7 +111,8 @@ describe('Validation and parsing', () => {
       type: 'p2wpkh',
       network: 'mainnet',
       address: addresses[1],
-    });
+      chains: ['bitcoin']
+    })
   });
 
   it('validates uppercase Bech32 P2WPKH', () => {
@@ -76,7 +124,8 @@ describe('Validation and parsing', () => {
       type: 'p2wpkh',
       network: 'mainnet',
       address: addresses[0],
-    });
+      chains: ['bitcoin']
+    })
 
     expect(validate(addresses[1])).not.toBe(false);
     expect(getAddressInfo(addresses[1])).toEqual({
@@ -84,63 +133,112 @@ describe('Validation and parsing', () => {
       type: 'p2wpkh',
       network: 'mainnet',
       address: addresses[1],
-    });
+      chains: ['bitcoin']
+    })
   });
 
   it('validates Testnet Bech32 P2WPKH', () => {
     const address = 'tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ bech32: true, type: 'p2wpkh', network: 'testnet', address });
+    expect(getAddressInfo(address)).toEqual({
+      bech32: true,
+      type: 'p2wpkh',
+      network: 'testnet',
+      address,
+      chains: ['bitcoin']
+    })
   });
 
   it('validates Regtest Bech32 P2WPKH', () => {
     const address = 'bcrt1q6z64a43mjgkcq0ul2znwneq3spghrlau9slefp';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ bech32: true, type: 'p2wpkh', network: 'regtest', address });
+    expect(getAddressInfo(address)).toEqual({
+      bech32: true,
+      type: 'p2wpkh',
+      network: 'regtest',
+      address,
+      chains: ['bitcoin']
+    })
   });
 
   it('validates Mainnet Bech32 P2TR', () => {
     const address = 'bc1ptxs597p3fnpd8gwut5p467ulsydae3rp9z75hd99w8k3ljr9g9rqx6ynaw';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ bech32: true, type: 'p2tr', network: 'mainnet', address });
+    expect(getAddressInfo(address)).toEqual({
+      bech32: true,
+      type: 'p2tr',
+      network: 'mainnet',
+      address,
+      chains: ['bitcoin']
+    })
   });
 
   it('validates Testnet Bech32 P2TR', () => {
     const address = 'tb1p84x2ryuyfevgnlpnxt9f39gm7r68gwtvllxqe5w2n5ru00s9aquslzggwq';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ bech32: true, type: 'p2tr', network: 'testnet', address });
+    expect(getAddressInfo(address)).toEqual({
+      bech32: true,
+      type: 'p2tr',
+      network: 'testnet',
+      address,
+      chains: ['bitcoin']
+    })
   });
 
   it('validates Regtest Bech32 P2TR', () => {
     const address = 'bcrt1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqc8gma6';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ bech32: true, type: 'p2tr', network: 'regtest', address });
+    expect(getAddressInfo(address)).toEqual({
+      bech32: true,
+      type: 'p2tr',
+      network: 'regtest',
+      address,
+      chains: ['bitcoin']
+    })
   });
 
   it('validates Mainnet Bech32 P2WSH', () => {
     const address = 'bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ bech32: true, type: 'p2wsh', network: 'mainnet', address });
+    expect(getAddressInfo(address)).toEqual({
+      bech32: true,
+      type: 'p2wsh',
+      network: 'mainnet',
+      address,
+      chains: ['bitcoin']
+    })
   });
 
   it('validates Testnet Bech32 P2WSH', () => {
     const address = 'tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ bech32: true, type: 'p2wsh', network: 'testnet', address });
+    expect(getAddressInfo(address)).toEqual({
+      bech32: true,
+      type: 'p2wsh',
+      network: 'testnet',
+      address,
+      chains: ['bitcoin']
+    })
   });
 
   it('validates Regtest Bech32 P2WSH', () => {
     const address = 'bcrt1q5n2k3frgpxces3dsw4qfpqk4kksv0cz96pldxdwxrrw0d5ud5hcqzzx7zt';
 
     expect(validate(address)).not.toBe(false);
-    expect(getAddressInfo(address)).toEqual({ bech32: true, type: 'p2wsh', network: 'regtest', address });
+    expect(getAddressInfo(address)).toEqual({
+      bech32: true,
+      type: 'p2wsh',
+      network: 'regtest',
+      address,
+      chains: ['bitcoin']
+    })
   });
 
   it('fails on invalid Bech32', () => {

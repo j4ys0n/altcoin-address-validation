@@ -1,9 +1,9 @@
 {
-  "name": "bitcoin-address-validation",
-  "version": "2.2.1",
-  "description": "Validate any Bitcoin address - P2WSH, P2WPKH, P2SH, P2PKH - Mainnet & Testnet",
-  "homepage": "https://github.com/ruigomeseu/bitcoin-address-validation",
-  "bugs": "https://github.com/ruigomeseu/bitcoin-address-validation/issues",
+  "name": "altcoin-address-validation",
+  "version": "3.0.0",
+  "description": "Validate any Bitcoin or Altcoin address - P2WSH, P2WPKH, P2SH, P2PKH - Mainnet & Testnet",
+  "homepage": "https://github.com/j4ys0n/altcoin-address-validation",
+  "bugs": "https://github.com/j4ys0n/altcoin-address-validation/issues",
   "main": "./lib/index.cjs.js",
   "module": "./lib/index.esm.js",
   "unpkg": "./lib/index.umd.js",
@@ -29,7 +29,11 @@
     "p2sh",
     "p2wpkh",
     "p2wsh",
-    "p2pkh"
+    "p2pkh",
+    "litecoin",
+    "dogecoin",
+    "verge",
+    "dash"
   ],
   "author": {
     "name": "Rui Gomes",
@@ -39,7 +43,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruigomeseu/bitcoin-address-validation"
+    "url": "https://github.com/j4ys0n/altcoin-address-validation"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
