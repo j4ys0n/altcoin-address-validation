@@ -40,6 +40,9 @@
     "email": "hello@ruigomes.me",
     "url": "https://ruigomes.me"
   },
+  "contributors": [
+    "jayson jacobs"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
